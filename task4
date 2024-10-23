@@ -1,0 +1,24 @@
+#include <iostream>
+
+int climbStairs(int n) {
+    if (n == 1) {
+        return 1; // Якщо одна сходинка, то є тільки один спосіб
+    }
+    if (n == 2) {
+        return 2; // Якщо дві сходинки, є два способи: 1+1 або 2
+    }
+    return climbStairs(n - 1) + climbStairs(n - 2); // Рекурсивно шукаємо кількість способів
+}
+
+int main() {
+    int n1 = 2;
+    std::cout << "Ways to climb " << n1 << " stairs: " << climbStairs(n1) << std::endl; // Output: 2
+
+    int n2 = 3;
+    std::cout << "Ways to climb " << n2 << " stairs: " << climbStairs(n2) << std::endl; // Output: 3
+
+    int n3 = 4;
+    std::cout << "Ways to climb " << n3 << " stairs: " << climbStairs(n3) << std::endl; // Output: 5
+
+    return 0;
+}
