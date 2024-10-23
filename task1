@@ -1,0 +1,17 @@
+#include <iostream>
+#include <string>
+
+void reverseString(const std::string &str, int index) {
+    if (index < 0) {
+        return; // Базовий випадок: якщо індекс менший за 0, завершуємо рекурсію
+    }
+    std::cout << str[index]; // Друкуємо символ на поточній позиції
+    reverseString(str, index - 1); // Рекурсивний виклик для наступного символу
+}
+
+int main() {
+    std::string input = "tiger";
+    reverseString(input, input.length() - 1); // Викликаємо функцію, починаючи з останнього символу
+    std::cout << std::endl; // Для нового рядка після виведення
+    return 0;
+}
