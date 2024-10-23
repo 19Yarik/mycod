@@ -1,0 +1,68 @@
+#include <iostream>
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {} // Конструктор для створення нового вузла
+};
+
+ListNode* swapPairs(ListNode* head) {
+    // Базовий випадок: якщо список порожній або має лише один елемент, не потрібно міняти місцями
+    if (!head || !head->next) {
+        return head;
+    }
+    
+    // Зберігаємо другий вузол і робимо рекурсивний виклик для наступної пари
+    ListNode* first = head;
+    ListNode* second = head->next;
+    
+    first->next = swapPairs(second->next); // Рекурсія для решти списку
+    second->next = first; // Міняємо місцями перший та другий вузли
+    
+    return second; // Другий вузол стає новою головою
+}
+
+// Функція для друку списку
+void printList(ListNode* head) {
+    ListNode* current = head;
+    while (current) {
+        std::cout << current->val << " ";
+        current = current->next;
+    }
+    std::cout << std::endl;
+}
+
+// Допоміжна функція для створення списку
+ListNode* createList(const std::initializer_list<int>& vals) {
+    ListNode* head = nullptr;
+    ListNode* tail = nullptr;
+    
+    for (int val : vals) {
+        ListNode* newNode = new ListNode(val);
+        if (!head) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+    
+    return head;
+}
+
+int main() {
+    ListNode* head1 = createList({1, 2, 3, 4});
+    ListNode* result1 = swapPairs(head1);
+    printList(result1); // Output: 2 1 4 3
+
+    ListNode* head2 = createList({});
+    ListNode* result2 = swapPairs(head2);
+    printList(result2); // Output: (нічого, список порожній)
+
+    ListNode* head3 = createList({1});
+    ListNode* result3 = swapPairs(head3);
+    printList(result3); // Output: 1
+
+    return 0;
+}
